@@ -1,0 +1,8 @@
+br\ufes\inf\labes\ohas\core\persistence\UserDAO.class
+br\ufes\inf\labes\ohas\core\persistence\UserJPADAO.class
+br\ufes\inf\labes\ohas\core\application\exceptions\LoginFailedException$LoginFailedReason.class
+br\ufes\inf\labes\ohas\core\application\exceptions\LoginFailedException.class
+br\ufes\inf\labes\ohas\core\application\exceptions\SystemAlreadyInstalledException.class
+br\ufes\inf\labes\ohas\core\domain\Role.class
+br\ufes\inf\labes\ohas\core\domain\User.class
+br\ufes\inf\labes\ohas\core\domain\User_.class
