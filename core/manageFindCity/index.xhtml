@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+        xmlns:f="http://xmlns.jcp.org/jsf/core"
+        xmlns:h="http://xmlns.jcp.org/jsf/html"
+        xmlns:p="http://primefaces.org/ui"
+        xmlns:adm="http://github.com/adminfaces"
+        template="/WEB-INF/templates/template.xhtml">
+
+    <ui:define name="title">
+        <h:outputText value="#{msgsCore['findCityController.title']}"/>
+    </ui:define>
+
+    <ui:define name="description">
+        <h:outputText value="#{msgsCore['findCityController.title.description']}"/>
+    </ui:define>
+
+    <ui:define name="body">
+        <adm:breadcrumb link="/core/findCityController/index" title="#{msgsCore['findCityController.title']}"/>
+
+        <style>
+            .carousel-item .carousel-item-content {
+                border: 1px solid black;
+                border-radius: 3px;
+                margin: .3rem;
+                text-align: center;
+                padding: 2rem 0;
+            }
+        </style>
+
+        <h:form id="form" enctype="multipart/form-data">
+            <!-- List of active workshops to select. Rendered when no workshop has been selected yet. -->
+            <p:carousel value="#{findCityController.cities}" var="obj" numVisible="3" numScroll="3"
+                        responsiveOptions="#{findCityController.responsiveOptions}"
+                        rendered="#{empty findCityController.selectedCity}">
+                <f:facet name="header">
+                    <h5><h:outputText value="#{msgsCore['findCityController.text.activeCity']}"/></h5>
+                </f:facet>
+                <div class="carousel-item">
+                    <div class="carousel-item-content">
+                        <div>
+                            <h4 class="mb-1"><h:outputText value="#{obj.name}"/></h4>
+                            <h6 class="mt-0 mb-3"><h:outputText value="#{obj.country}"/></h6>
+
+                            <p:commandButton id="selectCityButton" value="#{msgsCore['findCityController.button.selectCity']}"
+                                             icon="pi pi-send" update="@form">
+                                <f:setPropertyActionListener value="#{obj}" target="#{findCityController.selectedCity}"/>
+                            </p:commandButton>
+                        </div>
+                    </div>
+                </div>
+            </p:carousel>
+
+            <!-- Selected workshop. Rendered after a workshop is selected. -->
+            <h:panelGroup rendered="#{not empty findCityController.selectedCity}">
+                <h5><h:outputText value="#{msgsCore['findCityController.button.selectCity']}"/></h5>
+                <div class="carousel-item">
+                    <div class="carousel-item-content">
+                        <div>
+                            <h4 class="mb-1"><h:outputText value="#{findCityController.selectedCity.name}"/></h4>
+                            <h6 class="mt-0 mb-3"><h:outputText value="#{findCityController.selectedCity.country}"/></h6>
+
+                            <p:commandButton id="backButton" value="#{msgsCore['findCityController.button.cancel']}" icon="pi pi-ban"
+                                             update="@form" immediate="true">
+                                <f:setPropertyActionListener value="#{null}" target="#{findCityController.selectedCity}"/>
+                            </p:commandButton>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Form to submit a paper. -->
+<!--                <p:panel styleClass="card no-border" widgetVar="paperPanel">-->
+<!--                    <p:panelGrid columns="2" cellpadding="5" layout="grid" styleClass="ui-fluid"-->
+<!--                                 columnClasses="ui-grid-col-2,ui-grid-col-10">-->
+<!--                        &lt;!&ndash; Field: title. &ndash;&gt;-->
+<!--                        <p:outputLabel for="titleField" value="#{msgsCore['findCityController.field.title']}"/>-->
+<!--                        <h:panelGroup id="titleGroup">-->
+<!--                            <p:message id="titleMsgs" for="titleField"/>-->
+<!--                            <p:inputText id="titleField" value="#{findCityControllerController.submission.title}" required="true">-->
+<!--                                <p:ajax event="blur" process="@this" update="titleMsgs"/>-->
+<!--                            </p:inputText>-->
+<!--                        </h:panelGroup>-->
+
+<!--                        &lt;!&ndash; Field: abstractText. &ndash;&gt;-->
+<!--                        <p:outputLabel for="abstractTextField" value="#{msgsCore['findCityController.field.abstractText']}"/>-->
+<!--                        <h:panelGroup id="abstractTextGroup">-->
+<!--                            <p:message id="abstractTextMsgs" for="abstractTextField"/>-->
+<!--                            <p:inputTextarea id="abstractTextField" value="#{findCityControllerController.submission.abstractText}"-->
+<!--                                             rows="4" required="true">-->
+<!--                                <p:ajax event="blur" process="@this" update="abstractTextMsgs"/>-->
+<!--                            </p:inputTextarea>-->
+<!--                        </h:panelGroup>-->
+
+<!--                        &lt;!&ndash; Field: paper. &ndash;&gt;-->
+<!--                        <p:outputLabel for="paperField" value="#{msgsCore['findCityController.field.paper']}"/>-->
+<!--                        <h:panelGroup id="paperGroup">-->
+<!--                            <p:message id="paperMsgs" for="paperField"/>-->
+<!--                            <p:fileUpload id="paperField" value="#{findCityControllerController.paperFile}" mode="simple" skinSimple="true"-->
+<!--                                          chooseIcon="pi pi-file-pdf" listener="#{findCityControllerController.handlePaperFileUpload}"/>-->
+<!--                        </h:panelGroup>-->
+<!--                    </p:panelGrid>-->
+
+<!--                    <f:facet name="footer">-->
+<!--                        <p:commandButton id="submitButton" value="#{msgsCore['findCityController.button.submit']}" icon="pi pi-send"-->
+<!--                                         actionListener="#{findCityControllerController.findCityController}" ajax="false"/>-->
+<!--                        <p:defaultCommand target="submitButton"/>-->
+<!--                    </f:facet>-->
+<!--                </p:panel>-->
+            </h:panelGroup>
+        </h:form>
+    </ui:define>
+</ui:composition>
